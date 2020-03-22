@@ -5,6 +5,7 @@
  */
 package paddleexperience;
 
+import DBAcess.ClubDBAccess;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,11 +16,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.Member;
 
 /**
  * FXML Controller class
@@ -74,6 +78,25 @@ public class FXMLController implements Initializable {
     
     @FXML
     private void login(ActionEvent event) {
-        
+        String user = usernameField.getText();
+        String pass = passwordField.getText();
+        if (!(user.isEmpty() || pass.isEmpty())) {
+            ClubDBAccess clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
+            Member m = clubDBAccess.getMemberByCredentials(user, pass);
+            if (!(m == null)) {
+                System.out.println("Succesful login");
+            } else {
+                Alert a = new Alert(AlertType.ERROR);
+                a.setTitle("Incorrect login");
+                a.setHeaderText("Incorrect login '"+ user + "'");
+                a.setContentText("The login and/or password were not found. Try again.");
+                a.show();
+            }
+        } else {
+            Alert a = new Alert(AlertType.INFORMATION);
+            a.setTitle("Error");
+            a.setContentText("Not all fields were entered.");
+            a.show();
+        }
     }
 }
