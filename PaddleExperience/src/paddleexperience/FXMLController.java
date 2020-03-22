@@ -33,7 +33,7 @@ import model.Member;
 public class FXMLController implements Initializable {
     
     @FXML
-    private Button goToLoginButton, loginButton;
+    private Button goToLoginButton, goToRegisterButton, loginButton, registerButton, loginCancelButton;
     
     @FXML
     private TextField usernameField;
@@ -61,7 +61,12 @@ public class FXMLController implements Initializable {
         
     @FXML
     private void goHome(ActionEvent event) throws IOException {
-        Stage stage = (Stage) loginButton.getScene().getWindow();
+        Stage stage;
+        if (event.getSource() == loginCancelButton) {
+            stage = (Stage) loginButton.getScene().getWindow();
+        } else {
+            stage = (Stage) registerButton.getScene().getWindow();
+        }
         Parent root = FXMLLoader.load(getClass().getResource("FXMLWelcome.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -69,7 +74,12 @@ public class FXMLController implements Initializable {
     }
 
     @FXML
-    private void goToRegister(ActionEvent event) {
+    private void goToRegister(ActionEvent event) throws IOException {
+        Stage stage = (Stage) goToRegisterButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLRegister.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML

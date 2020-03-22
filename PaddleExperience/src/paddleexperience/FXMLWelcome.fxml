@@ -23,7 +23,7 @@
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#goToRegister" text="Register">
+                  <Button fx:id="goToRegisterButton" mnemonicParsing="false" onAction="#goToRegister" text="Register">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
