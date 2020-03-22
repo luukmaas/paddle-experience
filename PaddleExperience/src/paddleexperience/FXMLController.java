@@ -21,6 +21,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Member;
@@ -36,10 +37,10 @@ public class FXMLController implements Initializable {
     private Button goToLoginButton, goToRegisterButton, loginButton, registerButton, loginCancelButton;
     
     @FXML
-    private TextField usernameField;
+    private TextField usernameField_login, nameField_register, surnameField_register, telephoneField_register, loginField_register, passwordField_register, creditcardField_register, svcField_register;
     
     @FXML
-    private PasswordField passwordField;
+    private PasswordField passwordField_login;
     
     /**
      * Initializes the controller class.
@@ -88,8 +89,8 @@ public class FXMLController implements Initializable {
     
     @FXML
     private void login(ActionEvent event) {
-        String user = usernameField.getText();
-        String pass = passwordField.getText();
+        String user = usernameField_login.getText();
+        String pass = passwordField_login.getText();
         if (!(user.isEmpty() || pass.isEmpty())) {
             ClubDBAccess clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
             Member m = clubDBAccess.getMemberByCredentials(user, pass);
@@ -108,5 +109,22 @@ public class FXMLController implements Initializable {
             a.setContentText("Not all fields were entered.");
             a.show();
         }
+    }
+    
+    @FXML
+    private void register(ActionEvent event) {
+        String name = nameField_register.getText();
+        String surname = surnameField_register.getText();
+        String telephone = telephoneField_register.getText();
+        String login = loginField_register.getText();
+        String password = passwordField_register.getText();
+        String creditcard = creditcardField_register.getText();
+        String svc = svcField_register.getText();
+        Image img = new Image("no image");
+        
+        Member m = new Member(name, surname, telephone, login, password, creditcard, svc, img);
+        
+        ClubDBAccess clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
+        clubDBAccess.getMembers().add(m);
     }
 }

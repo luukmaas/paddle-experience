@@ -62,8 +62,8 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="usernameField_login" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <PasswordField fx:id="passwordField_login" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Username:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
             <Label text="Password:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
