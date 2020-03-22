@@ -19,11 +19,14 @@ public class PaddleExperience extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLWelcome.fxml"));
         
         Scene scene = new Scene(root);
         
+        stage.setTitle("Paddle Experience");
         stage.setScene(scene);
+        stage.setMinHeight(400);
+        stage.setMinWidth(600);
         stage.show();
     }
 
