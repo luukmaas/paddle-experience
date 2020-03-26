@@ -25,8 +25,8 @@ public class PaddleExperience extends Application {
         
         stage.setTitle("Paddle Experience");
         stage.setScene(scene);
-        stage.setMinHeight(400);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(700);
         stage.show();
     }
 

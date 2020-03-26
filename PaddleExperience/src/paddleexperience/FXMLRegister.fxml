@@ -4,7 +4,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -14,69 +16,163 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" vgap="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="5.0" valignment="TOP" vgrow="ALWAYS" />
-    <RowConstraints vgrow="NEVER" />
-    <RowConstraints vgrow="NEVER" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-  </rowConstraints>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
-   </padding>
-   <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLController">
+   <top>
+      <VBox prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Register">
                <font>
-                  <Font size="28.0" />
+                  <Font size="30.0" />
                </font>
             </Text>
-            <TextFlow prefHeight="200.0" prefWidth="200.0">
+            <TextFlow>
                <children>
-                  <Text lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fill in the form below and click 'Register' to register to the Paddle Experience system. Adding your creditcard is optional. Leave empty if you don't want to add one." textOrigin="TOP" wrappingWidth="394.1865234375">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fill in the form below and click 'Register' to register to the Paddle Experience system. Optionally you can add your creditcard details to enable paying by creditcard. Adding a profile image is optional, as well." />
                </children>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </TextFlow>
          </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
       </VBox>
-      <Label text="Name:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-      <Label text="Surname:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-      <TextField fx:id="nameField_register" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <TextField fx:id="surnameField_register" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextField fx:id="telephoneField_register" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <TextField fx:id="loginField_register" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <PasswordField fx:id="passwordField_register" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <TextField fx:id="creditcardField_register" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <TextField fx:id="svcField_register" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <Button minHeight="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="121.0" text="Choose file..." GridPane.columnIndex="1" GridPane.rowIndex="8" />
-      <Label text="Telephone:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-      <Label text="Username:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-      <Label text="Password:" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
-      <Label text="Creditcard number (optional):" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
-      <Label text="Creditcard SVC (optional):" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
-      <Label text="Profile image (optional):" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+   </top>
+   <center>
+      <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <content>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+              </rowConstraints>
+               <children>
+                  <Label text="Name:" GridPane.halignment="RIGHT">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Surname:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Telephone number:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="nameError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="surnameError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="telephoneError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="nameField_register" GridPane.columnIndex="1" />
+                  <TextField fx:id="surnameField_register" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="telephoneField_register" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label text="Username:" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Password:" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Creditcard number (optional):" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="SVC:" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Profile image (optional):" GridPane.halignment="RIGHT" GridPane.rowIndex="16">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField fx:id="usernameField_register" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <PasswordField fx:id="passwordField_register" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <PasswordField fx:id="passwordConfirmationField_register" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <TextField fx:id="creditcardField_register" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                  <TextField fx:id="svcField_register" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                  <Button mnemonicParsing="false" text="Choose image..." GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                  <Label fx:id="usernameError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label fx:id="passwordError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <Label fx:id="passwordConfirmationError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                  <Label fx:id="creditcardNumberError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                  <Label fx:id="svcError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+                  <Label fx:id="imageError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+                  <Label text="Password confirmation:" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+               </children>
+            </GridPane>
+         </content>
+      </ScrollPane>
+   </center>
+   <bottom>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Button fx:id="registerButton" mnemonicParsing="false" onAction="#register" text="Register" />
-            <Button fx:id="registerCancelButton" mnemonicParsing="false" onAction="#goHome" text="Cancel" />
+            <HBox spacing="10.0" GridPane.columnIndex="1">
+               <children>
+                  <Button fx:id="registerButton" mnemonicParsing="false" onAction="#register" text="Register" />
+                  <Button mnemonicParsing="false" onAction="#goHome" text="Cancel" />
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </GridPane.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
          </children>
-      </HBox>
-   </children>
-</GridPane>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </GridPane>
+   </bottom>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</BorderPane>

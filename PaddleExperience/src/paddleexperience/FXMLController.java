@@ -8,8 +8,12 @@ package paddleexperience;
 import DBAcess.ClubDBAccess;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,11 +23,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.Member;
 
 /**
@@ -37,11 +43,13 @@ public class FXMLController implements Initializable {
     private Button goToLoginButton, goToRegisterButton, loginButton, registerButton, loginCancelButton;
     
     @FXML
-    private TextField usernameField_login, nameField_register, surnameField_register, telephoneField_register, loginField_register, passwordField_register, creditcardField_register, svcField_register;
+    private TextField usernameField_login, nameField_register, surnameField_register, telephoneField_register, usernameField_register, passwordField_register, passwordConfirmationField_register, creditcardField_register, svcField_register;
     
     @FXML
     private PasswordField passwordField_login;
     
+    @FXML
+    private Label nameError, surnameError, telephoneError, usernameError, passwordError, passwordConfirmationError, creditcardNumberError, svcError, imageError;
     /**
      * Initializes the controller class.
      */
@@ -113,18 +121,38 @@ public class FXMLController implements Initializable {
     
     @FXML
     private void register(ActionEvent event) {
+        //Get data from input fields
         String name = nameField_register.getText();
         String surname = surnameField_register.getText();
         String telephone = telephoneField_register.getText();
-        String login = loginField_register.getText();
+        String login = usernameField_register.getText();
         String password = passwordField_register.getText();
+        String passwordConfirmation = passwordConfirmationField_register.getText();
         String creditcard = creditcardField_register.getText();
         String svc = svcField_register.getText();
-        Image img = new Image("no image");
+        //Image img = new Image("some url");
         
-        Member m = new Member(name, surname, telephone, login, password, creditcard, svc, img);
+        //Validate data
+        Member m = new Member(name, surname, telephone, login, password, creditcard, svc, null);
+        RegisterValidator validator = new RegisterValidator(m, passwordConfirmation, svcField_register);
+        ArrayList<String> errors = validator.validate();
         
-        ClubDBAccess clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
-        clubDBAccess.getMembers().add(m);
+        //If no errors, add data to database. Else, show errors in form
+        if (validator.isValid()) {
+            ClubDBAccess clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
+            clubDBAccess.getMembers().add(m);
+            System.out.println("Member " + name + " " + surname + " has been added succesfully.");   
+        } else {
+            nameError.setText(errors.get(0));
+            surnameError.setText(errors.get(1));
+            telephoneError.setText(errors.get(2));
+            usernameError.setText(errors.get(3));
+            passwordError.setText(errors.get(4));
+            passwordConfirmationError.setText(errors.get(5));
+            creditcardNumberError.setText(errors.get(6));
+            svcError.setText(errors.get(7));
+        }
+        
+        //Show success notification and return to home/login
     }
 }
