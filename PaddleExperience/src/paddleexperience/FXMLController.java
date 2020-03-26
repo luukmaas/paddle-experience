@@ -66,9 +66,13 @@ public class FXMLController implements Initializable {
     @FXML
     private void goToLogin(ActionEvent event) throws IOException {
         Stage stage = (Stage) goToLoginButton.getScene().getWindow();
+        double height = goToLoginButton.getScene().getWindow().getHeight();
+        double width = goToLoginButton.getScene().getWindow().getWidth();
         Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setHeight(height);
+        stage.setWidth(width);
         stage.show();
     }
     
@@ -76,13 +80,21 @@ public class FXMLController implements Initializable {
     @FXML
     private void goHome(ActionEvent event) throws IOException {
         Stage stage;
+        double height;
+        double width;
         if (event.getSource() == loginCancelButton) {
             stage = (Stage) loginButton.getScene().getWindow();
+            height = loginButton.getScene().getWindow().getHeight();
+            width = loginButton.getScene().getWindow().getWidth();
         } else {
             stage = (Stage) registerButton.getScene().getWindow();
+            height = registerButton.getScene().getWindow().getHeight();
+            width = registerButton.getScene().getWindow().getWidth();
         }
         Parent root = FXMLLoader.load(getClass().getResource("FXMLWelcome.fxml"));
         Scene scene = new Scene(root);
+        stage.setHeight(height);
+        stage.setWidth(width);
         stage.setScene(scene);
         stage.show();
     }
@@ -90,8 +102,12 @@ public class FXMLController implements Initializable {
     @FXML
     private void goToRegister(ActionEvent event) throws IOException {
         Stage stage = (Stage) goToRegisterButton.getScene().getWindow();
+        double height = goToRegisterButton.getScene().getWindow().getHeight();
+        double width = goToRegisterButton.getScene().getWindow().getWidth();
         Parent root = FXMLLoader.load(getClass().getResource("FXMLRegister.fxml"));
         Scene scene = new Scene(root);
+        stage.setHeight(height);
+        stage.setWidth(width);
         stage.setScene(scene);
         stage.show();
     }
