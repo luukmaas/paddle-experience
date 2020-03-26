@@ -116,11 +116,6 @@ public class RegisterValidator {
         }
         
         //Validate that if creditcard number has been entered, a 3-digit SVC has also been entered.
-        //Only enable field if creditcard number is not empty.
-//        this.svcField.textProperty().addListener((observable, oldValue, newValue) -> {
-//            System.out.println("textfield changed from " + oldValue + " to " + newValue);
-//        });
-        
         if (!this.creditcard.isEmpty() && this.svc.isEmpty()) {
             errors.add("You need to enter your SVC code if you want to add your creditcard");
         } else if (!this.creditcard.isEmpty() && this.svc.length() != 3) {

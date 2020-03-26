@@ -16,7 +16,6 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLController">
    <top>
       <VBox prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
@@ -124,15 +123,15 @@
                   <TextField fx:id="usernameField_register" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <PasswordField fx:id="passwordField_register" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                   <PasswordField fx:id="passwordConfirmationField_register" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                  <TextField fx:id="creditcardField_register" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                  <TextField fx:id="creditcardField_register" onKeyTyped="#enableSvcField" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                   <TextField fx:id="svcField_register" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-                  <Button mnemonicParsing="false" text="Choose image..." GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                  <Button mnemonicParsing="false" onAction="#uploadImage" text="Choose image..." GridPane.columnIndex="1" GridPane.rowIndex="16" />
                   <Label fx:id="usernameError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Label fx:id="passwordError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <Label fx:id="passwordConfirmationError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                   <Label fx:id="creditcardNumberError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="13" />
                   <Label fx:id="svcError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-                  <Label fx:id="imageError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+                  <Label fx:id="imageError" GridPane.columnIndex="1" GridPane.rowIndex="17" />
                   <Label text="Password confirmation:" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
                      <GridPane.margin>
                         <Insets right="10.0" />
