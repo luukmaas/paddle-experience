@@ -12,19 +12,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.ListIterator;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,22 +25,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import model.Booking;
-import model.Court;
 import model.Member;
 
 /**
@@ -58,27 +39,20 @@ import model.Member;
  * @author luukmaas
  */
 public class FXMLController implements Initializable {
-    
+
     @FXML
-    private Button goToLoginButton, goToRegisterButton, loginButton, registerButton, loginCancelButton, logOutButton;
-    
+    private Button goToLoginButton, goToRegisterButton, loginButton, registerButton, loginCancelButton;
     @FXML
     private TextField usernameField_login, nameField_register, surnameField_register, telephoneField_register, usernameField_register, passwordField_register, passwordConfirmationField_register, creditcardField_register, svcField_register;
-    
     @FXML
     private PasswordField passwordField_login;
-    
     @FXML
-    private Label nameError, surnameError, telephoneError, usernameError, passwordError, passwordConfirmationError, creditcardNumberError, svcError, imageError;
+    private Label nameError, surnameError;
+    @FXML
+    private Label telephoneError, usernameError, passwordError, passwordConfirmationError, creditcardNumberError, svcError, imageError;
     
     private String imagePath;
-    
-    @FXML
-    private TableView bookCourtTable;
-    
-    @FXML
-    private DatePicker datePicker;
-    
+    private Member member;
     /**
      * Initializes the controller class.
      */
@@ -90,58 +64,30 @@ public class FXMLController implements Initializable {
     @FXML
     private void goToLogin(ActionEvent event) throws IOException {
         Stage stage = (Stage) goToLoginButton.getScene().getWindow();
-        double height = goToLoginButton.getScene().getWindow().getHeight();
-        double width = goToLoginButton.getScene().getWindow().getWidth();
         Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setHeight(height);
-        stage.setWidth(width);
-        stage.show();
     }
     
-        
     @FXML
     private void goHome(ActionEvent event) throws IOException {
         Stage stage;
-        double height;
-        double width;
         if (event.getSource() == loginCancelButton) {
             stage = (Stage) loginButton.getScene().getWindow();
-            height = loginButton.getScene().getWindow().getHeight();
-            width = loginButton.getScene().getWindow().getWidth();
-        } else if (event.getSource() == logOutButton) {
-            stage = (Stage) logOutButton.getScene().getWindow();
-            height = logOutButton.getScene().getWindow().getHeight();
-            width = logOutButton.getScene().getWindow().getWidth();
         } else {
             stage = (Stage) registerButton.getScene().getWindow();
-            height = registerButton.getScene().getWindow().getHeight();
-            width = registerButton.getScene().getWindow().getWidth();
         }
         Parent root = FXMLLoader.load(getClass().getResource("FXMLWelcome.fxml"));
         Scene scene = new Scene(root);
-        stage.setHeight(height);
-        stage.setWidth(width);
         stage.setScene(scene);
-        stage.show();
     }
 
     @FXML
     private void goToRegister(ActionEvent event) throws IOException {
         Stage stage = (Stage) goToRegisterButton.getScene().getWindow();
-        double height = goToRegisterButton.getScene().getWindow().getHeight();
-        double width = goToRegisterButton.getScene().getWindow().getWidth();
         Parent root = FXMLLoader.load(getClass().getResource("FXMLRegister.fxml"));
         Scene scene = new Scene(root);
-        stage.setHeight(height);
-        stage.setWidth(width);
         stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    private void goToReservations(ActionEvent event) {
     }
     
     @FXML
@@ -152,20 +98,21 @@ public class FXMLController implements Initializable {
             ClubDBAccess clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
             Member m = clubDBAccess.getMemberByCredentials(user, pass);
             if (!(m == null)) {
-                System.out.println("Succesful login");
+                this.member = ClubDBAccess.getSingletonClubDBAccess().getMemberByCredentials(user, pass);
+//                System.out.println("Successful login for " + this.member.getLogin());
                 Stage stage = (Stage) usernameField_login.getScene().getWindow();
-                double height = usernameField_login.getScene().getWindow().getHeight();
-                double width = usernameField_login.getScene().getWindow().getWidth();
-                Parent root = FXMLLoader.load(getClass().getResource("FXMLMain.fxml"));
+                
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMain.fxml"));
+                Parent root = (Parent) loader.load();
+                
+                FXMLControllerMain controller = loader.getController();
+                controller.setMember(this.member);
                 Scene scene = new Scene(root);
-                stage.setHeight(height);
-                stage.setWidth(width);
                 stage.setScene(scene);
-                stage.show();
             } else {
                 Alert a = new Alert(AlertType.ERROR);
                 a.setTitle("Incorrect login");
-                a.setHeaderText("Incorrect login '"+ user + "'");
+                a.setHeaderText("Incorrect login '" + user + "'");
                 a.setContentText("The login and/or password were not found. Try again.");
                 a.show();
                 passwordField_login.setText("");
@@ -178,6 +125,10 @@ public class FXMLController implements Initializable {
             a.setContentText("Not all fields were entered.");
             a.show();
         }
+    }
+    
+    public Member getMember() {
+        return this.member;
     }
     
     @FXML
@@ -236,7 +187,6 @@ public class FXMLController implements Initializable {
                     root = FXMLLoader.load(getClass().getResource("FXMLWelcome.fxml"));
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
-                    stage.show();
                 } catch (IOException ex) {
                     Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -254,7 +204,7 @@ public class FXMLController implements Initializable {
         }
     }
     
-    @FXML 
+    @FXML
     private void enableSvcField() {
         creditcardField_register.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
@@ -266,72 +216,4 @@ public class FXMLController implements Initializable {
         });
     }
     
-    @FXML
-    private void showBookCourt() {
-        datePicker.setValue(LocalDate.now());
-        this.fillTable(LocalDate.now());
-        datePicker.valueProperty().addListener((obersable, oldValue, newValue) -> {
-            this.fillTable(newValue);
-        });
-    }
-
-    private void fillTable(LocalDate date) {
-        TableColumn timeColumn = (TableColumn) bookCourtTable.getColumns().get(0);
-        TableColumn courtColumn = (TableColumn) bookCourtTable.getColumns().get(1);
-        TableColumn availabilityColumn = (TableColumn) bookCourtTable.getColumns().get(2);
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("fromTime"));
-        courtColumn.setCellValueFactory(new Callback<CellDataFeatures<Booking, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(CellDataFeatures<Booking, String> p) {
-                return new SimpleStringProperty(p.getValue().getCourt().getName());
-            }
-        });
-        availabilityColumn.setCellValueFactory(new Callback<CellDataFeatures<Booking, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(CellDataFeatures<Booking, String> p) {
-                if (p.getValue().getMember() == null) {
-                    return new SimpleStringProperty("Free");
-                } else {
-                    return new SimpleStringProperty("Occupied");
-                }
-            }
-        });
-        
-        bookCourtTable.setItems(this.bookCourtTableData(date));
-        bookCourtTable.getSortOrder().add(timeColumn);
-    }
- 
-    public ObservableList<Booking> emptySlots(LocalDate date) {
-        ArrayList<Court> courts = ClubDBAccess.getSingletonClubDBAccess().getCourts(); //All courts
-        ArrayList<Booking> bookings = ClubDBAccess.getSingletonClubDBAccess().getForDayBookings(date); //All bookings for date
-        ArrayList<Booking> slots = new ArrayList<>();
-        
-        for (Court c : courts) {
-            LocalTime time = LocalTime.of(9, 0);
-            while (time.isBefore(LocalTime.of(21, 1))) {
-                slots.add(new Booking(null, date, time, false, c, null));
-                time = time.plusHours(1);
-                time = time.plusMinutes(30);
-            }   
-            
-        }
-        ObservableList observableSlots = FXCollections.observableList(slots);
-        return observableSlots;
-    }
-    
-    public ObservableList<Booking> bookCourtTableData(LocalDate date) {
-        ObservableList<Booking> slots = this.emptySlots(date); //All slots for date
-        ArrayList<Booking> bookings = ClubDBAccess.getSingletonClubDBAccess().getForDayBookings(date); //Occupied slots      
-
-        Iterator it = slots.iterator();
-        bookings.stream().forEach((b) -> {
-            while (it.hasNext()){
-                Booking b2 = (Booking) it.next();
-                if (b.getFromTime() == b2.getFromTime() && b.getCourt().getName().equals(b2.getCourt().getName())) { //Remove free slots that coincide with an occupied slot
-                    it.remove();
-                }
-            }
-        });
-        return slots;
-    }
 }

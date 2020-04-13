@@ -29,7 +29,7 @@ public class RegisterValidator {
     public RegisterValidator(Member m, String passConf, TextField svcInput) {
         this.name = m.getName();
         this.surname = m.getSurname();
-        this.telephone = m.getTelephon();
+        this.telephone = m.getTelephone();
         this.login = m.getLogin();
         this.password = m.getPassword();
         this.creditcard = m.getCreditCard();
