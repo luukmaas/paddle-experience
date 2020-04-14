@@ -32,7 +32,7 @@
             </TextFlow>
             <HBox prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
                <children>
-                  <Button fx:id="myBookingsButton" mnemonicParsing="false" text="My bookings" />
+                  <Button fx:id="myBookingsButton" mnemonicParsing="false" onAction="#showMyBookings" text="My bookings" />
                   <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#goHome" text="Log out" />
                </children>
                <VBox.margin>
