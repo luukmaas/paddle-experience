@@ -29,6 +29,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -50,6 +51,8 @@ public class FXMLControllerMain implements Initializable {
     private DatePicker datePicker;
     @FXML
     private Button logOutButton, bookButton;
+    @FXML
+    private Label welcomeLabel;
     
     private Member member;
     
