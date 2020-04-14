@@ -49,7 +49,7 @@ public class FXMLControllerMain implements Initializable {
     @FXML
     private DatePicker datePicker;
     @FXML
-    private Button logOutButton, bookButton;
+    private Button logOutButton, bookButton, myBookingsButton;
     
     private Member member;
     
@@ -88,7 +88,17 @@ public class FXMLControllerMain implements Initializable {
             }
         });
     }
+    
+    
+    @FXML
+    private void showMyBookings(ActionEvent event) throws IOException {
+        Stage stage = (Stage) myBookingsButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLMybookings.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+    }
 
+    
     private void fillTable(LocalDate date) {
         TableColumn timeColumn = (TableColumn) bookCourtTable.getColumns().get(0);
         TableColumn courtColumn = (TableColumn) bookCourtTable.getColumns().get(1);
