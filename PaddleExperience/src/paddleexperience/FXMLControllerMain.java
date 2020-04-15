@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -29,7 +30,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -37,6 +40,7 @@ import javafx.util.Callback;
 import model.Booking;
 import model.Court;
 import model.Member;
+import org.fxmisc.easybind.EasyBind;
 
 /**
  *
@@ -65,17 +69,11 @@ public class FXMLControllerMain implements Initializable {
     
     @FXML
     private void goHome(ActionEvent event) throws IOException {
-        Stage stage;
-        stage = (Stage) logOutButton.getScene().getWindow();
-        double height = logOutButton.getScene().getWindow().getHeight();
-        double width = logOutButton.getScene().getWindow().getWidth();
-        stage.setHeight(height);
-        stage.setWidth(width);
-
+        Stage stage = (Stage) logOutButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("FXMLWelcome.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.show();
+        
     }
     
     @FXML
@@ -156,6 +154,7 @@ public class FXMLControllerMain implements Initializable {
     private void fillTable(LocalDate date) {
         TableColumn timeColumn = (TableColumn) bookCourtTable.getColumns().get(0);
         TableColumn courtColumn = (TableColumn) bookCourtTable.getColumns().get(1);
+        TableColumn availabilityColumn = (TableColumn) bookCourtTable.getColumns().get(2);
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("fromTime"));
         courtColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Booking, String>, ObservableValue<String>>() {
             @Override
@@ -163,6 +162,17 @@ public class FXMLControllerMain implements Initializable {
                 return new SimpleStringProperty(p.getValue().getCourt().getName());
             }
         });
+        availabilityColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Booking, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Booking, String> p) {
+                if (p.getValue().getMember() == null) {
+                    return new SimpleStringProperty("Free");
+                } else {
+                    return new SimpleStringProperty(p.getValue().getMember().getLogin());
+                }
+            }
+        });
+        
         
         bookCourtTable.setItems(this.bookCourtTableData(date));
         bookCourtTable.getSortOrder().add(timeColumn);
@@ -190,17 +200,19 @@ public class FXMLControllerMain implements Initializable {
         ObservableList<Booking> slots = this.emptySlots(date); //All slots for date
         ArrayList<Booking> bookings = ClubDBAccess.getSingletonClubDBAccess().getForDayBookings(date); //Occupied slots      
         
+        
         bookings.stream().forEach((b) -> {
             Iterator it = slots.iterator();
             System.out.println(b.getCourt().getName() + " " + b.getFromTime());
             while (it.hasNext()){
                 Booking b2 = (Booking) it.next();
-                if (b.getFromTime().equals(b2.getFromTime()) && (b.getCourt().getName().equals(b2.getCourt().getName()))) { //Remove free slots that coincide with an occupied slot
+                if (b2.getMember() == null && b.getFromTime().equals(b2.getFromTime()) && (b.getCourt().getName().equals(b2.getCourt().getName()))) { //Remove free slots that coincide with an occupied slot
                     it.remove();
-                    System.out.println("Deleted " + b2.getCourt().getName() + " " + b2.getFromTime());
                 }
             }
         });
+        
+        slots.addAll(bookings);
         return slots;
     }
     

@@ -108,6 +108,7 @@ public class FXMLController implements Initializable {
                 FXMLControllerMain controller = loader.getController();
                 controller.setMember(this.member);
                 Scene scene = new Scene(root);
+                scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
                 stage.setScene(scene);
             } else {
                 Alert a = new Alert(AlertType.ERROR);
