@@ -83,7 +83,10 @@ public class FXMLControllerMain implements Initializable {
         Stage stage = (Stage) backButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("FXMLMain.fxml"));
         Scene scene = new Scene(root);
+        //scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
+        //scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
+       // scene.getStylesheets().add("path/style.css");
     }
     
     @FXML
@@ -92,9 +95,18 @@ public class FXMLControllerMain implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLMybookings.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+                
+        //how do I get the member?
+        //this.fillMyBookings(root.getMember());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMain.fxml"));
+        FXMLController c = loader.<FXMLController>getController();
+        
+        // c.getMember().getLogin() is a string
+        this.fillMyBookings(c.getMember().getLogin());
     }
     
-    private void fillMyBookings(LocalDate date) {
+    private void fillMyBookings(String login) {
+        
         TableColumn dayColumn = (TableColumn) myBookingsTable.getColumns().get(0);
         TableColumn courtCol = (TableColumn) myBookingsTable.getColumns().get(1);
         TableColumn timeCol = (TableColumn) myBookingsTable.getColumns().get(2);
@@ -108,12 +120,27 @@ public class FXMLControllerMain implements Initializable {
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Booking, String> p) {
                 return new SimpleStringProperty(p.getValue().getCourt().getName());
             }
-        });
+        });*/
         
-        bookCourtTable.setItems(this.bookCourtTableData(date));
-        bookCourtTable.getSortOrder().add(timeCol);*/
+       // myBookingsTable.setItems(this.userBookings(login));
+        //myBookingsTable.getSortOrder().add(timeCol);
+        
+        ClubDBAccess clubDBAcess;
+        clubDBAcess = ClubDBAccess.getSingletonClubDBAccess();
+        ObservableList<Booking> observableBookings;
+        observableBookings = FXCollections.observableList(clubDBAcess.getUserBookings(login));
+        myBookingsTable.setItems(observableBookings);
     }
     
+    public ObservableList<Booking> userBookings(String login) {
+        ArrayList<Booking> bookings = ClubDBAccess.getSingletonClubDBAccess().getUserBookings(login); //All bookings for user
+        ArrayList<Booking> slots = new ArrayList<>();
+        
+        ObservableList observableSlots = FXCollections.observableList(slots);
+        return observableSlots;
+    }
+
+        
     @FXML
     private void showBookCourt() {
         
