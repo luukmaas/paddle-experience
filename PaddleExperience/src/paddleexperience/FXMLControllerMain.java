@@ -46,10 +46,11 @@ public class FXMLControllerMain implements Initializable {
 
     @FXML
     private TableView bookCourtTable;
+    private TableView myBookingsTable;
     @FXML
     private DatePicker datePicker;
     @FXML
-    private Button logOutButton, bookButton, myBookingsButton;
+    private Button logOutButton, bookButton, myBookingsButton, backButton;
     
     private Member member;
     
@@ -78,6 +79,42 @@ public class FXMLControllerMain implements Initializable {
     }
     
     @FXML
+    private void goToMain(ActionEvent event) throws IOException {
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLMain.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+    }
+    
+    @FXML
+    private void showMyBookings(ActionEvent event) throws IOException {
+        Stage stage = (Stage) myBookingsButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLMybookings.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+    }
+    
+    private void fillMyBookings(LocalDate date) {
+        TableColumn dayColumn = (TableColumn) myBookingsTable.getColumns().get(0);
+        TableColumn courtCol = (TableColumn) myBookingsTable.getColumns().get(1);
+        TableColumn timeCol = (TableColumn) myBookingsTable.getColumns().get(2);
+        TableColumn paidColumn = (TableColumn) myBookingsTable.getColumns().get(3);
+        TableColumn delColumn = (TableColumn) myBookingsTable.getColumns().get(4);
+
+        
+        /*timeCol.setCellValueFactory(new PropertyValueFactory<>("fromTime"));
+        courtCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Booking, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Booking, String> p) {
+                return new SimpleStringProperty(p.getValue().getCourt().getName());
+            }
+        });
+        
+        bookCourtTable.setItems(this.bookCourtTableData(date));
+        bookCourtTable.getSortOrder().add(timeCol);*/
+    }
+    
+    @FXML
     private void showBookCourt() {
         
         this.fillTable(datePicker.getValue());
@@ -88,17 +125,7 @@ public class FXMLControllerMain implements Initializable {
             }
         });
     }
-    
-    
-    @FXML
-    private void showMyBookings(ActionEvent event) throws IOException {
-        Stage stage = (Stage) myBookingsButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLMybookings.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-    }
-
-    
+       
     private void fillTable(LocalDate date) {
         TableColumn timeColumn = (TableColumn) bookCourtTable.getColumns().get(0);
         TableColumn courtColumn = (TableColumn) bookCourtTable.getColumns().get(1);
