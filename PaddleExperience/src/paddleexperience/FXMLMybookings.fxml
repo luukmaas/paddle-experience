@@ -48,8 +48,6 @@
             <HBox prefWidth="200.0" spacing="10.0" VBox.vgrow="NEVER">
                <children>
                   <DatePicker fx:id="datePicker" />
-                  <Button fx:id="bookCourtButton" mnemonicParsing="false" onAction="#showBookCourt" text="Find available courts" />
-                  <Button fx:id="bookButton" disable="true" mnemonicParsing="false" onAction="#book" text="Book" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0" />
