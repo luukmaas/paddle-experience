@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,9 +29,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -48,19 +45,15 @@ import model.Member;
  */
 public class FXMLControllerMain implements Initializable {
 
-    @FXML
-    private TableView bookCourtTable;
-    private TableView myBookingsTable;
-    @FXML
-    private DatePicker datePicker;
-    @FXML
-    private Button logOutButton, bookButton, myBookingsButton, backButton;
+    @FXML private TableView bookCourtTable;
+    @FXML private DatePicker datePicker;
+    @FXML private Button logOutButton, bookButton, myBookingsButton;
     
     private Member member;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        datePicker.setValue(LocalDate.now());
+        datePicker.setValue(LocalDate.now());   
     }
        
     public void setMember(Member m) {
@@ -73,75 +66,22 @@ public class FXMLControllerMain implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLWelcome.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        
-    }
-    
-    @FXML
-    private void goToMain(ActionEvent event) throws IOException {
-        Stage stage = (Stage) backButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLMain.fxml"));
-        Scene scene = new Scene(root);
-        //scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
-        //scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        stage.setScene(scene);
-       // scene.getStylesheets().add("path/style.css");
     }
     
     @FXML
     private void showMyBookings(ActionEvent event) throws IOException {
         Stage stage = (Stage) myBookingsButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLMybookings.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMybookings.fxml"));
+        Parent root = (Parent) loader.load();
+        FXMLControllerMyBookings controller = loader.getController();
+        controller.setMember(member);
+        controller.fillMyBookings(this.member.getLogin());
         Scene scene = new Scene(root);
-        stage.setScene(scene);
-                
-        //how do I get the member?
-        //this.fillMyBookings(root.getMember());
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMain.fxml"));
-        FXMLController c = loader.<FXMLController>getController();
-        
-        // c.getMember().getLogin() is a string
-        this.fillMyBookings(c.getMember().getLogin());
-    }
-    
-    private void fillMyBookings(String login) {
-        
-        TableColumn dayColumn = (TableColumn) myBookingsTable.getColumns().get(0);
-        TableColumn courtCol = (TableColumn) myBookingsTable.getColumns().get(1);
-        TableColumn timeCol = (TableColumn) myBookingsTable.getColumns().get(2);
-        TableColumn paidColumn = (TableColumn) myBookingsTable.getColumns().get(3);
-        TableColumn delColumn = (TableColumn) myBookingsTable.getColumns().get(4);
-
-        
-        /*timeCol.setCellValueFactory(new PropertyValueFactory<>("fromTime"));
-        courtCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Booking, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Booking, String> p) {
-                return new SimpleStringProperty(p.getValue().getCourt().getName());
-            }
-        });*/
-        
-       // myBookingsTable.setItems(this.userBookings(login));
-        //myBookingsTable.getSortOrder().add(timeCol);
-        
-        ClubDBAccess clubDBAcess;
-        clubDBAcess = ClubDBAccess.getSingletonClubDBAccess();
-        ObservableList<Booking> observableBookings;
-        observableBookings = FXCollections.observableList(clubDBAcess.getUserBookings(login));
-        myBookingsTable.setItems(observableBookings);
-    }
-    
-    public ObservableList<Booking> userBookings(String login) {
-        ArrayList<Booking> bookings = ClubDBAccess.getSingletonClubDBAccess().getUserBookings(login); //All bookings for user
-        ArrayList<Booking> slots = new ArrayList<>();
-        
-        ObservableList observableSlots = FXCollections.observableList(slots);
-        return observableSlots;
+        stage.setScene(scene);  
     }
 
-        
     @FXML
-    private void showBookCourt() {
-        
+    private void showBookCourt() {      
         this.fillTable(datePicker.getValue());
         
         bookCourtTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -211,15 +151,6 @@ public class FXMLControllerMain implements Initializable {
     
     @FXML
     public void book() {        
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMain.fxml"));
-            Parent root = loader.load();
-            FXMLController c = loader.<FXMLController>getController();
-            System.out.println(c.getMember().getLogin());
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        
         Booking b = (Booking) bookCourtTable.getSelectionModel().getSelectedItem();
         
         LocalDateTime today = LocalDateTime.now();

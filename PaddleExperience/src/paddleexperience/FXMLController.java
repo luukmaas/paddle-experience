@@ -40,16 +40,11 @@ import model.Member;
  */
 public class FXMLController implements Initializable {
 
-    @FXML
-    private Button goToLoginButton, goToRegisterButton, loginButton, registerButton, loginCancelButton;
-    @FXML
-    private TextField usernameField_login, nameField_register, surnameField_register, telephoneField_register, usernameField_register, passwordField_register, passwordConfirmationField_register, creditcardField_register, svcField_register;
-    @FXML
-    private PasswordField passwordField_login;
-    @FXML
-    private Label nameError, surnameError;
-    @FXML
-    private Label telephoneError, usernameError, passwordError, passwordConfirmationError, creditcardNumberError, svcError, imageError;
+    @FXML private Button goToLoginButton, goToRegisterButton, loginButton, registerButton, loginCancelButton;
+    @FXML private TextField usernameField_login, nameField_register, surnameField_register, telephoneField_register, usernameField_register, passwordField_register, passwordConfirmationField_register, creditcardField_register, svcField_register;
+    @FXML private PasswordField passwordField_login;
+    @FXML private Label nameError, surnameError;
+    @FXML private Label telephoneError, usernameError, passwordError, passwordConfirmationError, creditcardNumberError, svcError, imageError;
     
     private String imagePath;
     private Member member;
@@ -99,12 +94,9 @@ public class FXMLController implements Initializable {
             Member m = clubDBAccess.getMemberByCredentials(user, pass);
             if (!(m == null)) {
                 this.member = ClubDBAccess.getSingletonClubDBAccess().getMemberByCredentials(user, pass);
-//                System.out.println("Successful login for " + this.member.getLogin());
                 Stage stage = (Stage) usernameField_login.getScene().getWindow();
-                
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMain.fxml"));
                 Parent root = (Parent) loader.load();
-                
                 FXMLControllerMain controller = loader.getController();
                 controller.setMember(this.member);
                 Scene scene = new Scene(root);

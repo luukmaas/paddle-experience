@@ -16,7 +16,6 @@ import javafx.stage.Stage;
  * @author luukmaas
  */
 
-/** viiilmaaa*/
 public class PaddleExperience extends Application {
     
     @Override

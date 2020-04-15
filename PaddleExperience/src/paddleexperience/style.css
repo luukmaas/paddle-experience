@@ -18,7 +18,6 @@ and open the template in the editor.
 
 .root{
     -fx-background-image: url("background_image.jpg");
-
 }
 
 .label {
