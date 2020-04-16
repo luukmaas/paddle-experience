@@ -49,7 +49,7 @@
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
                   <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" text="Login" />
-                  <Button fx:id="loginCancelButton" mnemonicParsing="false" onAction="#goHome" text="Cancel" />
+                  <Button fx:id="loginCancelButton" mnemonicParsing="false" onAction="#goToHome" text="Cancel" />
                </children>
             </HBox>
          </children>
