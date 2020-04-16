@@ -55,8 +55,8 @@ public class FXMLControllerMyBookings implements Initializable {
         Stage stage = (Stage) logOutButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("FXMLWelcome.fxml"));
         Scene scene = new Scene(root);
-        stage.setScene(scene);
-        
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        stage.setScene(scene);  
     }
     
     @FXML
@@ -68,6 +68,7 @@ public class FXMLControllerMyBookings implements Initializable {
         System.out.println(member.getTelephone() + " (test)");
         controller.setMember(member);
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
         
     }

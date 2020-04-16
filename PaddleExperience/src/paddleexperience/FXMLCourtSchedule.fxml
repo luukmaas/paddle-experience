@@ -27,21 +27,13 @@
                       <Font size="32.0" />
                     </font>
                   </Label>               
-               <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#goHome" text="Log out" />
+               <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#goHome" text="Back" />
                </children>
                <VBox.margin>
                   <Insets top="10.0"/>
                </VBox.margin>
             </HBox>
 
-            <HBox prefWidth="200.0" spacing="10.0" VBox.vgrow="NEVER">
-               <children>
-                  <Button fx:id="myBookingsButton" mnemonicParsing="false" onAction="#showMyBookings" text="My bookings" />
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
          </children>
       </VBox>
    </top>
@@ -52,7 +44,6 @@
                <children>
                   <DatePicker fx:id="datePicker" />
                   <Button fx:id="bookCourtButton" mnemonicParsing="false" onAction="#showBookCourt" styleClass="buttonClass" text="Find available courts" />
-                  <Button fx:id="bookButton" disable="true" mnemonicParsing="false" onAction="#book" text="Book" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0" />

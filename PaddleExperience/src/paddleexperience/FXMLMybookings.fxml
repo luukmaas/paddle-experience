@@ -19,20 +19,24 @@
    <top>
       <VBox prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="welcomeLabel" text="Paddle Experience">
-               <font>
-                  <Font size="32.0" />
-               </font>
-            </Label>
-            <TextFlow prefWidth="200.0" VBox.vgrow="NEVER">
+           <HBox prefWidth="200.0" spacing="300.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Here is your 10 latest booking" />
+                  <Label fx:id="welcomeLabel" text="Paddle Experience">
+                    <font>
+                      <Font size="32.0" />
+                    </font>
+                  </Label>       
+        
+               <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#goHome" text="Log out" />
                </children>
-            </TextFlow>
+               <VBox.margin>
+                  <Insets top="10.0"/>
+               </VBox.margin>
+            </HBox>
+
             <HBox prefWidth="200.0" spacing="10.0" VBox.vgrow="NEVER">
                <children>
-                  <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#goHome" text="Log out" />
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#goToMain" text="Back" />
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#goToMain" text="Back to booking" />
                </children>
                <VBox.margin>
                   <Insets top="10.0" />
@@ -52,9 +56,11 @@
             <TableView fx:id="myBookingsTable" prefWidth="200.0">
               <columns>
                 <TableColumn editable="false" prefWidth="75.0" text="Day" />
-                <TableColumn prefWidth="-1.0" text="Time" />
                 <TableColumn prefWidth="-1.0" text="Court" />
+                <TableColumn prefWidth="-1.0" text="Time" />
                 <TableColumn prefWidth="-1.0" text="Paid" />
+                <TableColumn prefWidth="-1.0" text="Delete" />
+
 
               </columns>
                <columnResizePolicy>

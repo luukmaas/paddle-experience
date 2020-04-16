@@ -61,6 +61,7 @@ public class FXMLController implements Initializable {
         Stage stage = (Stage) goToLoginButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
     }
     
@@ -74,6 +75,7 @@ public class FXMLController implements Initializable {
         }
         Parent root = FXMLLoader.load(getClass().getResource("FXMLWelcome.fxml"));
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
     }
 
@@ -82,6 +84,16 @@ public class FXMLController implements Initializable {
         Stage stage = (Stage) goToRegisterButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("FXMLRegister.fxml"));
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        stage.setScene(scene);
+    }
+    
+    @FXML
+    private void goToSchedule(ActionEvent event) throws IOException {
+        Stage stage = (Stage) goToRegisterButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLCourts.fxml"));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
     }
     
@@ -179,6 +191,7 @@ public class FXMLController implements Initializable {
                 try {
                     root = FXMLLoader.load(getClass().getResource("FXMLWelcome.fxml"));
                     Scene scene = new Scene(root);
+                    scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
                     stage.setScene(scene);
                 } catch (IOException ex) {
                     Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);

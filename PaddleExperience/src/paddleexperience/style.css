@@ -8,22 +8,60 @@ and open the template in the editor.
     Author     : vilmaahlholm
 */
 
+/*
 #pane{
     -fx-background-image: url("background_image.jpg");
     -fx-background-repeat: stretch;   
     -fx-background-size: 900 506;
     -fx-background-position: center center;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0); 
-}
+}*/
 
 .root{
     -fx-background-image: url("background_image.jpg");
 }
 
-.label {
+/*
+.text {
     -fx-font-family: Al Bayan;
-    -fx-font-size: 12px;
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
     -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }
+*/
+
+#welcomeLabel, #welcome1, #welcome2, #register {
+    -fx-font-family: "Monaco";
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+#member {
+    -fx-font-family: "Monaco";
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.label {
+    -fx-font-family: "Monaco";
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.text {
+    -fx-font-family: "Monaco";
+    -fx-text-fill: white;
+}
+
+
+/*Buttons:*/
+#logOutButton, #backButton, #myBookingsButton, #bookButton, #img, #registerButton, #cancel, #scheduleButton, #goToRegisterButton, #goBackButton {
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+    -fx-font-family: "Monaco";
+    -fx-background-color: white;
+}
+

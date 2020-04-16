@@ -20,19 +20,8 @@
    <top>
       <VBox prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Register">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Text>
-            <TextFlow>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fill in the form below and click 'Register' to register to the Paddle Experience system. Optionally you can add your creditcard details to enable paying by creditcard. Adding a profile image is optional, as well." />
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </TextFlow>
+            <Label fx:id="register" text="Register">
+            </Label>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -40,7 +29,7 @@
       </VBox>
    </top>
    <center>
-      <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" style="-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 10;">
          <BorderPane.margin>
             <Insets bottom="10.0" />
          </BorderPane.margin>
@@ -48,7 +37,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <content>
-            <GridPane>
+            <GridPane style="-fx-border-color:black; -fx-border-style: solid; -fx-background-color: rgba(255, 255, 255, 0); -fx-background-radius: 10;">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -125,7 +114,7 @@
                   <PasswordField fx:id="passwordConfirmationField_register" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                   <TextField fx:id="creditcardField_register" onKeyTyped="#enableSvcField" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                   <TextField fx:id="svcField_register" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-                  <Button mnemonicParsing="false" onAction="#uploadImage" text="Choose image..." GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                  <Button fx:id="img" mnemonicParsing="false" onAction="#uploadImage" text="Choose image..." GridPane.columnIndex="1" GridPane.rowIndex="16" />
                   <Label fx:id="usernameError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Label fx:id="passwordError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <Label fx:id="passwordConfirmationError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="11" />
@@ -156,7 +145,7 @@
             <HBox spacing="10.0" GridPane.columnIndex="1">
                <children>
                   <Button fx:id="registerButton" mnemonicParsing="false" onAction="#register" text="Register" />
-                  <Button mnemonicParsing="false" onAction="#goHome" text="Cancel" />
+                  <Button fx:id="cancel" mnemonicParsing="false" onAction="#goHome" text="Cancel" />
                </children>
                <GridPane.margin>
                   <Insets bottom="10.0" top="10.0" />
