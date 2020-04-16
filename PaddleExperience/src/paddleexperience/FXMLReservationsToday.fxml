@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -12,8 +12,11 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLControllerMyBookings">
-   <padding>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLControllerReservationsToday">
+    <stylesheets>
+        <URL value="@style.css" />
+    </stylesheets>
+    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <top>
@@ -26,18 +29,9 @@
             </Label>
             <TextFlow prefWidth="200.0" VBox.vgrow="NEVER">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Here is your 10 latest booking" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Below you can see an overview of all bookings of today" />
                </children>
             </TextFlow>
-            <HBox prefWidth="200.0" spacing="10.0" VBox.vgrow="NEVER">
-               <children>
-                  <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#goToHome" text="Log out" />
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#goToMain" text="Back" />
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
          </children>
       </VBox>
    </top>
@@ -49,12 +43,11 @@
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </HBox>
-            <TableView fx:id="myBookingsTable" prefWidth="200.0">
+            <TableView fx:id="bookingsTodayTable" prefWidth="200.0">
               <columns>
-                <TableColumn editable="false" prefWidth="75.0" text="Day" />
                 <TableColumn prefWidth="-1.0" text="Time" />
                 <TableColumn prefWidth="-1.0" text="Court" />
-                <TableColumn prefWidth="-1.0" text="Paid" />
+                <TableColumn prefWidth="-1.0" text="Booked by" />
 
               </columns>
                <columnResizePolicy>

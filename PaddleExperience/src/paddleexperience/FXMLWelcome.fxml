@@ -37,7 +37,7 @@
             </Separator>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Reservations today" />
+                  <Button fx:id="goToReservationsButton" mnemonicParsing="false" onAction="#goToReservationsToday" text="Reservations today" />
                </children>
             </HBox>
          </children>

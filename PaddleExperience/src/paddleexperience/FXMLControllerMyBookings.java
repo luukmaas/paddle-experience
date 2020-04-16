@@ -65,7 +65,6 @@ public class FXMLControllerMyBookings implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMain.fxml"));
         Parent root = (Parent) loader.load();
         FXMLControllerMain controller = loader.getController();
-        System.out.println(member.getTelephone() + " (test)");
         controller.setMember(member);
         Scene scene = new Scene(root);
         stage.setScene(scene);

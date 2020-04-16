@@ -40,7 +40,7 @@ import model.Member;
  */
 public class FXMLController implements Initializable {
 
-    @FXML private Button goToLoginButton, goToRegisterButton, loginButton, registerButton, loginCancelButton;
+    @FXML private Button goToLoginButton, goToRegisterButton, goToReservationsButton, loginButton, registerButton, loginCancelButton;
     @FXML private TextField usernameField_login, nameField_register, surnameField_register, telephoneField_register, usernameField_register, passwordField_register, passwordConfirmationField_register, creditcardField_register, svcField_register;
     @FXML private PasswordField passwordField_login;
     @FXML private Label nameError, surnameError;
@@ -56,6 +56,10 @@ public class FXMLController implements Initializable {
         //TODO
     }    
 
+    public Member getMember() {
+        return this.member;
+    }
+    
     @FXML
     private void goToLogin(ActionEvent event) throws IOException {
         Stage stage = (Stage) goToLoginButton.getScene().getWindow();
@@ -65,7 +69,7 @@ public class FXMLController implements Initializable {
     }
     
     @FXML
-    private void goHome(ActionEvent event) throws IOException {
+    private void goToHome(ActionEvent event) throws IOException {
         Stage stage;
         if (event.getSource() == loginCancelButton) {
             stage = (Stage) loginButton.getScene().getWindow();
@@ -118,20 +122,6 @@ public class FXMLController implements Initializable {
             a.setContentText("Not all fields were entered.");
             a.show();
         }
-    }
-    
-    public Member getMember() {
-        return this.member;
-    }
-    
-    @FXML
-    private void uploadImage(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png");
-        fileChooser.getExtensionFilters().add(imageFilter);
-        File selectedFile = fileChooser.showOpenDialog(((Button) event.getSource()).getScene().getWindow());
-        this.imagePath = selectedFile.toString();
-        imageError.setText(selectedFile.getName());
     }
     
     @FXML
@@ -198,6 +188,16 @@ public class FXMLController implements Initializable {
     }
     
     @FXML
+    private void uploadImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png");
+        fileChooser.getExtensionFilters().add(imageFilter);
+        File selectedFile = fileChooser.showOpenDialog(((Button) event.getSource()).getScene().getWindow());
+        this.imagePath = selectedFile.toString();
+        imageError.setText(selectedFile.getName());
+    }
+    
+    @FXML
     private void enableSvcField() {
         creditcardField_register.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
@@ -209,4 +209,11 @@ public class FXMLController implements Initializable {
         });
     }
     
+    @FXML
+    private void goToReservationsToday() throws IOException {
+        Stage stage = (Stage) goToReservationsButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLReservationsToday.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+    }
 }

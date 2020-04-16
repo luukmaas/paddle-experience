@@ -5,7 +5,9 @@
  */
 package paddleexperience;
 
+import DBAcess.ClubDBAccess;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.scene.control.TextField;
@@ -73,6 +75,7 @@ public class RegisterValidator {
         }
         
         //Validate username is not empty, only contains alphanumeric characters and is between 8-20 chars.
+        //Also, check if username is unique (i.e. no other use with the same username exists)
         Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
         if (this.login.isEmpty()) {
             errors.add("Username cannot be empty");
@@ -80,6 +83,8 @@ public class RegisterValidator {
             errors.add("Username must be between 8 and 20 characters");
         } else if (p.matcher(this.login).find()) {
             errors.add("Username can only contain letters and numbers");
+        } else if (this.usernameExists(this.login)) {
+            errors.add("Username already exists. Please choose another one.");
         } else {
             errors.add("");
         }
@@ -141,5 +146,20 @@ public class RegisterValidator {
             }
         }
         return true;
+    }
+    
+    //Function to check if username already exists
+    public boolean usernameExists(String username) {
+        ClubDBAccess db = ClubDBAccess.getSingletonClubDBAccess();
+        ArrayList<Member> allMembers = db.getMembers();
+        ArrayList<String> allUsernames = new ArrayList<>();
+        
+        Iterator<Member> it = allMembers.iterator();
+        while (it.hasNext()) {
+            Member m = it.next();
+            allUsernames.add(m.getLogin());
+        }
+        
+        return allUsernames.contains(username);
     }
 }
