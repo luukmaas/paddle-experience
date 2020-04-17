@@ -68,7 +68,14 @@ public class FXMLControllerCourtSchedule implements Initializable {
         TableColumn timeColumn = (TableColumn) bookCourtTable.getColumns().get(0);
         TableColumn courtColumn = (TableColumn) bookCourtTable.getColumns().get(1);
         TableColumn availabilityColumn = (TableColumn) bookCourtTable.getColumns().get(2);
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("fromTime"));
+        timeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Booking, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Booking, String> p) {
+                String from = p.getValue().getFromTime().toString();
+                String to = p.getValue().getFromTime().plusHours(1).plusMinutes(30).toString();
+                return new SimpleStringProperty(from + " - " + to);
+            }
+        });
         courtColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Booking, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Booking, String> p) {

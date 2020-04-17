@@ -57,12 +57,21 @@ and open the template in the editor.
 }
 
 
-.button {
-    -fx-background-color: red;
+.myBookingsTable .button {
+    -fx-graphic: url('delete-icon.png');
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-padding: 0px;
+}
+
+.columnCenter {
+    /*-fx-text-alignment: center;*/
+    -fx-alignment: center;
 }
 
 /*Buttons:*/
 .customButton {
+    -fx-padding: 4px;
+    -fx-graphic: null;
     -fx-text-fill: black;
     -fx-font-size: 12px;
     -fx-font-family: "Monaco";
@@ -72,4 +81,8 @@ and open the template in the editor.
 .customDatepicker {
     -fx-font-size: 12px;
     -fx-font-family: "Monaco";
+}
+
+.myBookingsTable .table-row-cell {
+    -fx-cell-size: 40px;
 }

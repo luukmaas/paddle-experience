@@ -8,19 +8,31 @@ package paddleexperience;
 import DBAcess.ClubDBAccess;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -29,7 +41,6 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Booking;
 import model.Member;
-//import org.fxmisc.easybind.EasyBind;
 
 /**
  *
@@ -38,10 +49,11 @@ import model.Member;
 public class FXMLControllerMyBookings implements Initializable {
 
     @FXML private TableView myBookingsTable;
-    @FXML private Button logOutButton, myBookingsButton, backButton;
+    @FXML private Button logOutButton, backButton;
     
     private Member member;
-    
+    private static final int MAX_ITEMS = 10;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
@@ -70,7 +82,6 @@ public class FXMLControllerMyBookings implements Initializable {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
-        
     }
     
     public void fillMyBookings(String login) {
@@ -85,7 +96,18 @@ public class FXMLControllerMyBookings implements Initializable {
         (final TableColumn<Booking, String> param) -> {
             final TableCell<Booking, String> cell = new TableCell<Booking, String>() {
                 
-                Button btn = new Button("Delete");
+                Button btn = new Button("");
+                public boolean isNotWithin24hours(Booking b) {
+                    LocalDate date = b.getMadeForDay();
+                    LocalTime time = b.getFromTime();
+                    if (date.isAfter(LocalDate.now().plusDays(1))) {
+                        return true;
+                    } else {
+                        if (date.isEqual(LocalDate.now())) {
+                            return false;
+                        } else return LocalDateTime.now().until(LocalDateTime.of(date, time), ChronoUnit.HOURS) >= 24;
+                    }
+                }
                 
                 @Override
                 public void updateItem(String item, boolean empty) {
@@ -94,9 +116,35 @@ public class FXMLControllerMyBookings implements Initializable {
                         setGraphic(null);
                         setText(null);
                     } else {
+                        Booking booking = getTableView().getItems().get(getIndex());
                         btn.setOnAction(event -> {
-                            Booking booking = getTableView().getItems().get(getIndex());
-                            System.out.println(booking.getMadeForDay() + ", " + booking.getFromTime());
+                            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                            a.setTitle("Deleting booking");
+                            a.setHeaderText("Deleting your booking.");
+                            a.setContentText("Are you sure you want to delete your booking of " + booking.getCourt().getName() + " at date " + booking.getMadeForDay().toString() + " at time " + booking.getFromTime().toString() + "?");
+
+                            Optional<ButtonType> result = a.showAndWait();
+                            if(!result.isPresent() || result.get() == ButtonType.CANCEL) {
+                                //Deleting is cancelled, nothing happens
+                            } else if(result.get() == ButtonType.OK) {
+                                ClubDBAccess.getSingletonClubDBAccess().getBookings().remove(booking);
+                                ClubDBAccess.getSingletonClubDBAccess().saveDB();
+
+                                try {    
+                                    Stage stage = (Stage) myBookingsTable.getScene().getWindow();
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMyBookings.fxml"));
+                                    Parent root = (Parent) loader.load();
+                                    FXMLControllerMyBookings controller = loader.getController();
+                                    controller.setMember(member);
+                                    controller.fillMyBookings(member.getLogin());
+                                    Scene scene = new Scene(root);
+                                    scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());  
+                                    stage.setScene(scene);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(FXMLControllerMyBookings.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+
                         });
                         setGraphic(btn);
                         setText(null);
@@ -105,41 +153,16 @@ public class FXMLControllerMyBookings implements Initializable {
             };
             return cell;
         };
-//        Callback<TableColumn<Person, String>, TableCell<Person, String>> cellFactory
-//                = //
-//                new Callback<TableColumn<Person, String>, TableCell<Person, String>>() {
-//            @Override
-//            public TableCell call(final TableColumn<Person, String> param) {
-//                final TableCell<Person, String> cell = new TableCell<Person, String>() {
-//
-//                    final Button btn = new Button("Just Do It");
-//
-//                    @Override
-//                    public void updateItem(String item, boolean empty) {
-//                        super.updateItem(item, empty);
-//                        if (empty) {
-//                            setGraphic(null);
-//                            setText(null);
-//                        } else {
-//                            btn.setOnAction(event -> {
-//                                Person person = getTableView().getItems().get(getIndex());
-//                                System.out.println(person.getFirstName()
-//                                        + "   " + person.getLastName());
-//                            });
-//                            setGraphic(btn);
-//                            setText(null);
-//                        }
-//                    }
-//                };
-//                return cell;
-//            }
-//        };
-//
         deleteBtnColumn.setCellFactory(cellFactory);
-        
         dayColumn.setCellValueFactory(new PropertyValueFactory<>("madeForDay"));
-        timeCol.setCellValueFactory(new PropertyValueFactory<>("fromTime"));
-        
+        timeCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Booking, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Booking, String> p) {
+                String from = p.getValue().getFromTime().toString();
+                String to = p.getValue().getFromTime().plusHours(1).plusMinutes(30).toString();
+                return new SimpleStringProperty(from + " - " + to);
+            }
+        });
         courtCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Booking, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Booking, String> p) {
@@ -156,11 +179,39 @@ public class FXMLControllerMyBookings implements Initializable {
                 }
             }
         });
-        myBookingsTable.setItems(this.userBookings(login));
+        
+        ObservableList<Booking> data = this.userBookings(login);
+
+        SortedList<Booking> sortedList = new SortedList<>(data, 
+            (Booking booking1, Booking booking2) -> {
+                if( booking1.getBookingDate().isBefore(booking2.getBookingDate()) ) {
+                    return -1;
+                } else if( booking1.getBookingDate().isAfter(booking2.getBookingDate()) ) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+        });
+        
+        FilteredList<Booking> filteredData = new FilteredList<>(
+            sortedList,
+            booking -> data.indexOf(booking) < MAX_ITEMS
+        );
+
+        myBookingsTable.setItems(filteredData);
     }
     
     public ObservableList<Booking> userBookings(String login) {
         ArrayList<Booking> bookings = ClubDBAccess.getSingletonClubDBAccess().getUserBookings(login); //All bookings for user
+        
+        //Filter away all bookings from the past
+        Iterator it = bookings.iterator();
+        while (it.hasNext()) {
+            Booking b = (Booking) it.next();
+            if (b.getMadeForDay().isBefore(LocalDate.now())) {
+                it.remove();
+            }
+        }
         
         ObservableList observableSlots = FXCollections.observableList(bookings);
         return observableSlots;
