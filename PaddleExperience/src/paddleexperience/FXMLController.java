@@ -60,14 +60,14 @@ public class FXMLController implements Initializable {
         return this.member;
     }
     
-    @FXML
-    private void goToLogin(ActionEvent event) throws IOException {
-        Stage stage = (Stage) goToLoginButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        stage.setScene(scene);
-    }
+//    @FXML
+//    private void goToLogin(ActionEvent event) throws IOException {
+//        Stage stage = (Stage) goToLoginButton.getScene().getWindow();
+//        Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
+//        Scene scene = new Scene(root);
+//        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+//        stage.setScene(scene);
+//    }
     
     @FXML
     private void goToHome(ActionEvent event) throws IOException {
@@ -95,7 +95,7 @@ public class FXMLController implements Initializable {
     @FXML
     private void goToSchedule(ActionEvent event) throws IOException {
         Stage stage = (Stage) goToRegisterButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLCourts.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLCourtSchedule.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
@@ -220,13 +220,5 @@ public class FXMLController implements Initializable {
                 svcField_register.setDisable(true);
             }
         });
-    }
-    
-    @FXML
-    private void goToReservationsToday() throws IOException {
-        Stage stage = (Stage) goToReservationsButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLReservationsToday.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
     }
 }

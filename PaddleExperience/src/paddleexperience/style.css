@@ -51,17 +51,25 @@ and open the template in the editor.
     -fx-font-weight: bold;
 }
 
-.text {
+.text, .whiteLabel {
     -fx-font-family: "Monaco";
     -fx-text-fill: white;
 }
 
 
+.button {
+    -fx-background-color: red;
+}
+
 /*Buttons:*/
-#logOutButton, #backButton, #myBookingsButton, #bookButton, #img, #registerButton, #cancel, #scheduleButton, #goToRegisterButton, #goBackButton {
+.customButton {
     -fx-text-fill: black;
     -fx-font-size: 12px;
     -fx-font-family: "Monaco";
     -fx-background-color: white;
 }
 
+.customDatepicker {
+    -fx-font-size: 12px;
+    -fx-font-family: "Monaco";
+}

@@ -12,9 +12,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.TextFlow?>
 
 <BorderPane minHeight="600.0" minWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLController">
    <top>
@@ -29,7 +26,7 @@
       </VBox>
    </top>
    <center>
-      <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" style="-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 10;">
+      <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 10;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" />
          </BorderPane.margin>
@@ -114,7 +111,7 @@
                   <PasswordField fx:id="passwordConfirmationField_register" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                   <TextField fx:id="creditcardField_register" onKeyTyped="#enableSvcField" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                   <TextField fx:id="svcField_register" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-                  <Button fx:id="img" mnemonicParsing="false" onAction="#uploadImage" text="Choose image..." GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                  <Button fx:id="img" mnemonicParsing="false" onAction="#uploadImage" styleClass="customButton" text="Choose image..." GridPane.columnIndex="1" GridPane.rowIndex="16" />
                   <Label fx:id="usernameError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Label fx:id="passwordError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <Label fx:id="passwordConfirmationError" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="11" />
@@ -127,6 +124,9 @@
                      </GridPane.margin>
                   </Label>
                </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
             </GridPane>
          </content>
       </ScrollPane>
@@ -144,8 +144,8 @@
          <children>
             <HBox spacing="10.0" GridPane.columnIndex="1">
                <children>
-                  <Button fx:id="registerButton" mnemonicParsing="false" onAction="#register" text="Register" />
-                  <Button fx:id="cancel" mnemonicParsing="false" onAction="#goHome" text="Cancel" />
+                  <Button fx:id="registerButton" mnemonicParsing="false" onAction="#register" styleClass="customButton" text="Register" />
+                  <Button fx:id="cancel" mnemonicParsing="false" onAction="#goToHome" styleClass="customButton" text="Cancel" />
                </children>
                <GridPane.margin>
                   <Insets bottom="10.0" top="10.0" />

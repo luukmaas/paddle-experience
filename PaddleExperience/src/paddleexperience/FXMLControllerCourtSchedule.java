@@ -9,11 +9,9 @@ import DBAcess.ClubDBAccess;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -25,10 +23,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -36,61 +32,33 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Booking;
 import model.Court;
-import model.Member;
+
 
 /**
+ * FXML Controller class
  *
- * @author luukmaas
+ * @author vilmaahlholm
  */
-public class FXMLControllerMain implements Initializable {
-
+public class FXMLControllerCourtSchedule implements Initializable {
+    
     @FXML private TableView bookCourtTable;
-    @FXML private DatePicker datePicker;
-    @FXML private Button logOutButton, bookButton, myBookingsButton, goBackButton;
-    
-    private Member member;
-    
+    @FXML private Button goBackButton;
+    @FXML private Label dateLabel;
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        datePicker.setValue(LocalDate.now());   
+    public void initialize(URL url, ResourceBundle rb) {
         this.fillTable(LocalDate.now());
-        datePicker.valueProperty().addListener((observable, oldDate, newDate)-> {
-            this.fillTable(newDate);
-        });
-        bookCourtTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null ){
-                bookButton.setDisable(false);                
-            }
-        });
-    }
-       
-    public void setMember(Member m) {
-        this.member = m;
-    }
+        this.dateLabel.setText("All bookings of today, " + LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + ".");
+    }    
+    
     
     @FXML
     private void goToHome(ActionEvent event) throws IOException {
-        Stage stage;
-        if (event.getSource() == goBackButton) {
-            stage = (Stage) goBackButton.getScene().getWindow();
-        } else {
-            stage = (Stage) logOutButton.getScene().getWindow();
-        } 
-        
+        Stage stage = (Stage) goBackButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("FXMLWelcome.fxml"));
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        stage.setScene(scene);
-    }
-    
-    @FXML
-    private void showMyBookings(ActionEvent event) throws IOException {
-        Stage stage = (Stage) myBookingsButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMyBookings.fxml"));
-        Parent root = (Parent) loader.load();
-        FXMLControllerMyBookings controller = loader.getController();
-        controller.setMember(member);
-        controller.fillMyBookings(this.member.getLogin());
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);  
@@ -154,31 +122,5 @@ public class FXMLControllerMain implements Initializable {
         return slots;
     }
     
-    @FXML
-    public void book() {        
-        Booking b = (Booking) bookCourtTable.getSelectionModel().getSelectedItem();
-        
-        LocalDateTime today = LocalDateTime.now();
-        LocalDate date = datePicker.getValue();
-        LocalTime fromHour = b.getFromTime();
-        Boolean hasPaid = this.member.checkHasCreditInfo();
-        Court court = b.getCourt();        
-        Member m = this.member;
-        
-        Booking booking = new Booking(today, date, fromHour, hasPaid, court, m);
-        
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-        a.setTitle("Booking confirmation");
-        a.setHeaderText("Confirm your booking.");
-        a.setContentText("Are you sure you want to book " + court.getName() + " at date " + date.toString() + " at time " + fromHour.toString() + "?");
-       
-        Optional<ButtonType> result = a.showAndWait();
-        if(!result.isPresent() || result.get() == ButtonType.CANCEL) {
-            //Booking is cancelled, nothing happens
-        } else if(result.get() == ButtonType.OK) {
-            ClubDBAccess.getSingletonClubDBAccess().getBookings().add(booking);
-            ClubDBAccess.getSingletonClubDBAccess().saveDB(); 
-            this.fillTable(datePicker.getValue());
-        }
-    }
+    
 }

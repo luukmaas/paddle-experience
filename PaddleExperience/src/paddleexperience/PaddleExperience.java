@@ -23,6 +23,7 @@ public class PaddleExperience extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLWelcome.fxml"));
         
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         
         stage.setTitle("Paddle Experience");
         stage.setScene(scene);
