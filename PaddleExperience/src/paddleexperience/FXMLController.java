@@ -29,6 +29,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Member;
@@ -40,7 +41,7 @@ import model.Member;
  */
 public class FXMLController implements Initializable {
 
-    @FXML private Button goToLoginButton, goToRegisterButton, goToReservationsButton, loginButton, registerButton, loginCancelButton;
+    @FXML private Button goToLoginButton, goToRegisterButton, goToReservationsButton, loginButton, registerButton, loginCancelButton, infoButton;
     @FXML private TextField usernameField_login, nameField_register, surnameField_register, telephoneField_register, usernameField_register, passwordField_register, passwordConfirmationField_register, creditcardField_register, svcField_register;
     @FXML private PasswordField passwordField_login;
     @FXML private Label nameError, surnameError;
@@ -93,6 +94,15 @@ public class FXMLController implements Initializable {
     }
     
     @FXML
+    private void goToInfo(ActionEvent event) throws IOException {
+        Stage stage = (Stage) infoButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLInfo.fxml"));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        stage.setScene(scene);
+    }
+    
+    @FXML
     private void goToSchedule(ActionEvent event) throws IOException {
         Stage stage = (Stage) goToRegisterButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("FXMLCourtSchedule.fxml"));
@@ -100,6 +110,12 @@ public class FXMLController implements Initializable {
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
     }
+    
+    @FXML
+    public void onEnter(ActionEvent event) throws IOException{
+        System.out.println("test");
+        login(event);
+     }
     
     @FXML
     private void login(ActionEvent event) throws IOException {

@@ -46,7 +46,7 @@ public class FXMLControllerMain implements Initializable {
 
     @FXML private TableView bookCourtTable;
     @FXML private DatePicker datePicker;
-    @FXML private Button logOutButton, bookButton, myBookingsButton, goBackButton;
+    @FXML private Button logOutButton, bookButton, myBookingsButton, goBackButton, infoButton;
     
     private Member member;
     
@@ -78,6 +78,15 @@ public class FXMLControllerMain implements Initializable {
         } 
         
         Parent root = FXMLLoader.load(getClass().getResource("FXMLWelcome.fxml"));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        stage.setScene(scene);
+    }
+    
+    @FXML
+    private void goToInfo(ActionEvent event) throws IOException {
+        Stage stage = (Stage) infoButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLInfo.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
