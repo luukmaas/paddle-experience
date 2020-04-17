@@ -30,6 +30,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -100,7 +101,14 @@ public class FXMLControllerMain implements Initializable {
         TableColumn timeColumn = (TableColumn) bookCourtTable.getColumns().get(0);
         TableColumn courtColumn = (TableColumn) bookCourtTable.getColumns().get(1);
         TableColumn availabilityColumn = (TableColumn) bookCourtTable.getColumns().get(2);
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("fromTime"));
+        timeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Booking, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Booking, String> p) {
+                String from = p.getValue().getFromTime().toString();
+                String to = p.getValue().getFromTime().plusHours(1).plusMinutes(30).toString();
+                return new SimpleStringProperty(from + " - " + to);
+            }
+        });
         courtColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Booking, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Booking, String> p) {
@@ -157,6 +165,14 @@ public class FXMLControllerMain implements Initializable {
     @FXML
     public void book() {        
         Booking b = (Booking) bookCourtTable.getSelectionModel().getSelectedItem();
+        if (b.getMember() != null) {
+            Alert error = new Alert(Alert.AlertType.WARNING);
+            error.setTitle("Occupied court");
+            error.setHeaderText("This court is already booked.");
+            error.setContentText("The court you are trying to book has already been booked by another member. Please book an other court.");
+            error.showAndWait();
+            return;
+        }
         
         LocalDateTime today = LocalDateTime.now();
         LocalDate date = datePicker.getValue();
