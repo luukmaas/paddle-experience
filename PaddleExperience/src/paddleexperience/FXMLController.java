@@ -27,6 +27,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
@@ -113,12 +114,15 @@ public class FXMLController implements Initializable {
     
     @FXML
     public void onEnter(ActionEvent event) throws IOException{
+        ProgressIndicator proInd = new ProgressIndicator();
         System.out.println("test");
         login(event);
      }
     
     @FXML
     private void login(ActionEvent event) throws IOException {
+        ProgressIndicator proInd = new ProgressIndicator();
+        
         String user = usernameField_login.getText();
         String pass = passwordField_login.getText();
         if (!(user.isEmpty() || pass.isEmpty())) {

@@ -101,6 +101,8 @@ public class FXMLControllerMain implements Initializable {
         FXMLControllerMyBookings controller = loader.getController();
         controller.setMember(member);
         controller.fillMyBookings(this.member.getLogin());
+        controller.greetUser(this.member);
+        controller.displayUserImage(this.member);
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);  

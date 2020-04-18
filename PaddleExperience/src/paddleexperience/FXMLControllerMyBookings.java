@@ -33,10 +33,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Booking;
@@ -50,6 +52,10 @@ public class FXMLControllerMyBookings implements Initializable {
 
     @FXML private TableView myBookingsTable;
     @FXML private Button logOutButton, backButton;
+    @FXML private ImageView userImg;
+    @FXML private Label greetLabel1, greetLabel2;
+
+
     
     private Member member;
     private static final int MAX_ITEMS = 10;
@@ -215,6 +221,28 @@ public class FXMLControllerMyBookings implements Initializable {
         
         ObservableList observableSlots = FXCollections.observableList(bookings);
         return observableSlots;
+    }
+    
+    
+    public void displayUserImage(Member memberImg) {
+        userImg.setImage(memberImg.getImage());
+        userImg.setFitHeight(100);
+        userImg.setFitWidth(100);
+
+    }
+    
+    
+    public void greetUser(Member memberInput) {
+        Label greet1;
+        greet1 = (Label) greetLabel1;
+        //this.setMember(member);
+        greet1.setText("Hi " + memberInput.getName());
+        
+        Label greet2;
+        greet2 = (Label) greetLabel2;
+        greet2.setText("here are your latest bookings!");
+        //greet.setText(member.getLogin());
+
     }
 
 }
