@@ -5,12 +5,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.image.*?>
-
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLControllerMyBookings">
    <padding>
@@ -22,10 +20,10 @@
            <HBox prefWidth="200.0" spacing="500.0">
                <children>
                    <VBox>
-                       <Label fx:id="greetLabel1"></Label>
+                       <Label fx:id="greetLabel1" />
                    </VBox>
-                  <VBox HBox.hgrow="ALWAYS">
-                      <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#goToHome" styleClass="customButton" text="Log out"/>                
+                  <VBox alignment="TOP_RIGHT" HBox.hgrow="ALWAYS">
+                      <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#goToHome" styleClass="customButton" text="Log out" />                
                   </VBox>
                </children>
                <VBox.margin>
@@ -35,7 +33,7 @@
             
             <HBox spacing="60.0">
                <children>
-                  <Label fx:id="greetLabel2"></Label>
+                  <Label fx:id="greetLabel2" />
                </children>
                <VBox.margin>
                   <Insets top="5.0" />
@@ -47,11 +45,11 @@
                   <Button fx:id="backButton" mnemonicParsing="false" onAction="#goToMain" styleClass="customButton" text="Back to booking" />
                </children>
                <VBox.margin>
-                  <Insets top="10.0" bottom="10.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </HBox>
             
-            <ImageView fx:id="userImg"></ImageView>  
+            <ImageView fx:id="userImg" />  
 
          </children>
       </VBox>
@@ -67,11 +65,11 @@
             </HBox>
             <TableView fx:id="myBookingsTable" prefWidth="200.0" styleClass="myBookingsTable">
               <columns>
-                <TableColumn editable="false" prefWidth="75.0" text="Day" />
-                <TableColumn prefWidth="-1.0" text="Court" />
-                <TableColumn prefWidth="-1.0" text="Time" />
-                <TableColumn prefWidth="-1.0" text="Paid" />
-                <TableColumn prefWidth="-1.0" text="Delete" />
+                <TableColumn editable="false" prefWidth="75.0" styleClass="columnCenter" text="Day" />
+                <TableColumn prefWidth="-1.0" styleClass="columnCenter" text="Court" />
+                <TableColumn prefWidth="-1.0" styleClass="columnCenter" text="Time" />
+                <TableColumn prefWidth="-1.0" styleClass="columnCenter" text="Paid" />
+                <TableColumn prefWidth="-1.0" styleClass="columnCenter" text="Delete" />
 
 
               </columns>
