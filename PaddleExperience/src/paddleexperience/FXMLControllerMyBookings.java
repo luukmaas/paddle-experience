@@ -39,6 +39,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Booking;
@@ -52,7 +53,7 @@ public class FXMLControllerMyBookings implements Initializable {
 
     @FXML private TableView myBookingsTable;
     @FXML private Button logOutButton, backButton;
-    @FXML private ImageView userImg;
+    @FXML private HBox userImg;
     @FXML private Label greetLabel1, greetLabel2;
 
 
@@ -225,24 +226,26 @@ public class FXMLControllerMyBookings implements Initializable {
     
     
     public void displayUserImage(Member memberImg) {
-        userImg.setImage(memberImg.getImage());
-        userImg.setFitHeight(100);
-        userImg.setFitWidth(100);
+        if (memberImg.getImage() == null) {
+            System.out.println("Ingen bild huh??");
+            return;
+        } else{
+            ImageView usersImage = new ImageView();
+            usersImage.setImage(memberImg.getImage());
+            usersImage.setFitHeight(100);
+            usersImage.setFitWidth(100);
+            userImg.getChildren().add(usersImage);
+        }
 
     }
-    
     
     public void greetUser(Member memberInput) {
         Label greet1;
         greet1 = (Label) greetLabel1;
-        //this.setMember(member);
         greet1.setText("Hi " + memberInput.getName());
-        
         Label greet2;
         greet2 = (Label) greetLabel2;
         greet2.setText("here are your latest bookings!");
-        //greet.setText(member.getLogin());
-
     }
 
 }

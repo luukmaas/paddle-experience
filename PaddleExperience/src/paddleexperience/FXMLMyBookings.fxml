@@ -49,8 +49,11 @@
                </VBox.margin>
             </HBox>
             
-            <ImageView fx:id="userImg" />  
-
+            <HBox fx:id="userImg" spacing="60.0">
+               <children>
+               </children>
+            </HBox>
+            
          </children>
       </VBox>
       
