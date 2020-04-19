@@ -70,7 +70,6 @@ and open the template in the editor.
 }
 
 .columnCenter {
-    /*-fx-text-alignment: center;*/
     -fx-alignment: center;
 }
 
