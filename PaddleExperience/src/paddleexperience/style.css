@@ -85,7 +85,7 @@ and open the template in the editor.
 }
 
 .customButton:hover{
-    -fx-background-color: grey;
+    -fx-background-color: linear-gradient(whitesmoke, lightgray);
 }
 
 .customDatepicker {
