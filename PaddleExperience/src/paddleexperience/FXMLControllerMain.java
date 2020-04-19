@@ -112,6 +112,7 @@ public class FXMLControllerMain implements Initializable {
         TableColumn timeColumn = (TableColumn) bookCourtTable.getColumns().get(0);
         TableColumn courtColumn = (TableColumn) bookCourtTable.getColumns().get(1);
         TableColumn availabilityColumn = (TableColumn) bookCourtTable.getColumns().get(2);
+
         timeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Booking, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Booking, String> p) {
@@ -176,6 +177,10 @@ public class FXMLControllerMain implements Initializable {
     @FXML
     public void book() {        
         Booking b = (Booking) bookCourtTable.getSelectionModel().getSelectedItem();
+        LocalDateTime today = LocalDateTime.now();
+        LocalDate date = datePicker.getValue();
+        LocalTime fromHour = b.getFromTime();
+        
         if (b.getMember() != null) {
             Alert error = new Alert(Alert.AlertType.WARNING);
             error.setTitle("Occupied court");
@@ -184,10 +189,30 @@ public class FXMLControllerMain implements Initializable {
             error.showAndWait();
             return;
         }
+         
+        LocalDate todaysDate = LocalDate.now();
+        int dateDiff = todaysDate.compareTo(date);
+        System.out.println(dateDiff);
+        if (dateDiff > 0) {
+            Alert error = new Alert(Alert.AlertType.WARNING);
+            error.setTitle("Date has passed");
+            error.setHeaderText("The date for this booking is in the passed.");
+            error.setContentText("The date you are trying to book is in the passed. Please book a court at a day in the future.");
+            error.showAndWait();
+            return;
+        }
         
-        LocalDateTime today = LocalDateTime.now();
-        LocalDate date = datePicker.getValue();
-        LocalTime fromHour = b.getFromTime();
+        int now = LocalTime.now().getHour();
+        int bookHour = fromHour.getHour();
+        if (bookHour < now) {
+            Alert error = new Alert(Alert.AlertType.WARNING);
+            error.setTitle("Time has passed");
+            error.setHeaderText("The booking time for this court has already passed.");
+            error.setContentText("The time you are trying to book has already passed. Please book a court at an other time.");
+            error.showAndWait();
+            return;
+        }
+        
         Boolean hasPaid = this.member.checkHasCreditInfo();
         Court court = b.getCourt();        
         Member m = this.member;
