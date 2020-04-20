@@ -87,6 +87,18 @@ and open the template in the editor.
     -fx-background-color: linear-gradient(whitesmoke, lightgray);
 }
 
+.customButton:pressed{
+    -fx-background-color: lightgray;
+    -fx-box-shadow: 0 4px 2px -2px #666;
+    -fx-transform: translateY(4px);
+}
+
+.clickWithEnter {
+    -fx-background-color: gray;
+    -fx-box-shadow: 0 4px 2px -2px #666;
+    -fx-transform: translateY(4px);
+}
+
 .customDatepicker {
     -fx-font-size: 12px;
     -fx-font-family: "Monaco";

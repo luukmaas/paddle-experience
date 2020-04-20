@@ -38,8 +38,10 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Booking;
@@ -144,6 +146,8 @@ public class FXMLControllerMyBookings implements Initializable {
                                     FXMLControllerMyBookings controller = loader.getController();
                                     controller.setMember(member);
                                     controller.fillMyBookings(member.getLogin());
+                                    controller.greetUser(member);
+                                    controller.displayUserImage(member);
                                     Scene scene = new Scene(root);
                                     scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());  
                                     stage.setScene(scene);
@@ -224,10 +228,8 @@ public class FXMLControllerMyBookings implements Initializable {
         return observableSlots;
     }
     
-    
     public void displayUserImage(Member memberImg) {
         if (memberImg.getImage() == null) {
-            System.out.println("Ingen bild huh??");
             return;
         } else{
             ImageView usersImage = new ImageView();
@@ -236,7 +238,6 @@ public class FXMLControllerMyBookings implements Initializable {
             usersImage.setFitWidth(100);
             userImg.getChildren().add(usersImage);
         }
-
     }
     
     public void greetUser(Member memberInput) {
@@ -247,5 +248,15 @@ public class FXMLControllerMyBookings implements Initializable {
         greet2 = (Label) greetLabel2;
         greet2.setText("here are your latest bookings!");
     }
-
+    
+    public void displayLoadingIndicator() {
+        VBox box = new VBox();
+        ImageView loading = new ImageView();
+        box.getChildren().add(loading);
+        Button localLoadButton = new Button("Local load");
+        localLoadButton.setOnAction(e -> {
+            loading.setImage(new Image(this.getClass().getResource("ajax-loader.gif").toExternalForm()));
+        }); 
+    }
+    
 }

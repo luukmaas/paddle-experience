@@ -51,7 +51,7 @@ public class FXMLControllerCourtSchedule implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.fillTable(LocalDate.now());
-        this.dateLabel.setText("All bookings of today, " + LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + ".");
+        this.dateLabel.setText("All bookings of today, " + LocalDate.now().getDayOfMonth() + "/" + LocalDate.now().getMonthValue() + ".");
     }    
     
     

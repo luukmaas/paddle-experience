@@ -114,15 +114,11 @@ public class FXMLController implements Initializable {
     
     @FXML
     public void onEnter(ActionEvent event) throws IOException{
-        ProgressIndicator proInd = new ProgressIndicator();
-        System.out.println("test");
         login(event);
      }
     
     @FXML
-    private void login(ActionEvent event) throws IOException {
-        ProgressIndicator proInd = new ProgressIndicator();
-        
+    private void login(ActionEvent event) throws IOException {        
         String user = usernameField_login.getText();
         String pass = passwordField_login.getText();
         if (!(user.isEmpty() || pass.isEmpty())) {
