@@ -8,7 +8,6 @@ package paddleexperience;
 import DBAcess.ClubDBAccess;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.scene.control.TextField;
 import model.Member;
@@ -18,17 +17,16 @@ import model.Member;
  * @author luukmaas
  */
 public class RegisterValidator {
-    private String name;
-    private String surname;
-    private String telephone;
-    private String login;
-    private String password;
-    private String creditcard;
-    private String svc;
-    private String passwordConfirmation;
-    private TextField svcField;
+    private final String name;
+    private final String surname;
+    private final String telephone;
+    private final String login;
+    private final String password;
+    private final String creditcard;
+    private final String svc;
+    private final String passwordConfirmation;
     
-    public RegisterValidator(Member m, String passConf, TextField svcInput) {
+    public RegisterValidator(Member m, String passConf) {
         this.name = m.getName();
         this.surname = m.getSurname();
         this.telephone = m.getTelephone();
@@ -37,7 +35,6 @@ public class RegisterValidator {
         this.creditcard = m.getCreditCard();
         this.svc = m.getSvc();
         this.passwordConfirmation = passConf;
-        this.svcField = svcInput;
     }
     
     public ArrayList<String> validate() {

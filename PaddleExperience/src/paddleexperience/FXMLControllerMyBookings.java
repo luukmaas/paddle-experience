@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package paddleexperience;
 
 import DBAcess.ClubDBAccess;
@@ -51,14 +46,13 @@ import model.Member;
  *
  * @author luukmaas
  */
+
 public class FXMLControllerMyBookings implements Initializable {
 
     @FXML private TableView myBookingsTable;
     @FXML private Button logOutButton, backButton;
     @FXML private HBox userImg;
     @FXML private Label greetLabel1, greetLabel2;
-
-
     
     private Member member;
     private static final int MAX_ITEMS = 10;

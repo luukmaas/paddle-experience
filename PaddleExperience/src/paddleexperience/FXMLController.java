@@ -27,10 +27,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Member;
@@ -42,7 +40,7 @@ import model.Member;
  */
 public class FXMLController implements Initializable {
 
-    @FXML private Button goToLoginButton, goToRegisterButton, goToReservationsButton, loginButton, registerButton, loginCancelButton, infoButton;
+    @FXML private Button goToRegisterButton, loginButton, registerButton, loginCancelButton, infoButton;
     @FXML private TextField usernameField_login, nameField_register, surnameField_register, telephoneField_register, usernameField_register, passwordField_register, passwordConfirmationField_register, creditcardField_register, svcField_register;
     @FXML private PasswordField passwordField_login;
     @FXML private Label nameError, surnameError;
@@ -61,15 +59,6 @@ public class FXMLController implements Initializable {
     public Member getMember() {
         return this.member;
     }
-    
-//    @FXML
-//    private void goToLogin(ActionEvent event) throws IOException {
-//        Stage stage = (Stage) goToLoginButton.getScene().getWindow();
-//        Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
-//        Scene scene = new Scene(root);
-//        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-//        stage.setScene(scene);
-//    }
     
     @FXML
     private void goToHome(ActionEvent event) throws IOException {
@@ -174,7 +163,7 @@ public class FXMLController implements Initializable {
         
         //Validate data
         Member m = new Member(name, surname, telephone, login, password, creditcard, svc, img);
-        RegisterValidator validator = new RegisterValidator(m, passwordConfirmation, svcField_register);
+        RegisterValidator validator = new RegisterValidator(m, passwordConfirmation);
         ArrayList<String> errors = validator.validate();
         
         //If no errors, add data to database. Else, show errors in form

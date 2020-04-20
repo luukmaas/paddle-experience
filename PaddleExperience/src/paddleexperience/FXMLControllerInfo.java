@@ -34,8 +34,6 @@ public class FXMLControllerInfo implements Initializable {
         // TODO
     }   
     
-        
-    
     @FXML
     private void goToHome(ActionEvent event) throws IOException {
         Stage stage = (Stage) backButton.getScene().getWindow();
